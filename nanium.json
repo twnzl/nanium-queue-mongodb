@@ -1,0 +1,5 @@
+{
+  "serviceDirectory": "testservices",
+  "indentString": "\t",
+  "namespace": "NaniumTest"
+}

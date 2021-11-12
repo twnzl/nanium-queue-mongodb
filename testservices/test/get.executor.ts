@@ -3,7 +3,7 @@ import { ServiceExecutor } from 'nanium/interfaces/serviceExecutor';
 import { ServiceResponseMessage } from '../serviceResponseBase';
 
 export class TestGetExecutor implements ServiceExecutor<TestGetRequest, TestGetResponse> {
-	static serviceName: string = 'NaniumSelf.TestGet';
+	static serviceName: string = 'NaniumTest:test/get';
 
 	async execute(request: TestGetRequest): Promise<TestGetResponse> {
 		if (request.body.input2 === 5) {
