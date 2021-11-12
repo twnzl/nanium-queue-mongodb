@@ -1,0 +1,30 @@
+{
+  "name": "nanium-queue-mongodb",
+  "version": "1.0.0",
+  "description": "request queue for the nanium framework using a mongodb collection to hold the request entries",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "nanium",
+    "queue",
+    "mongodb"
+  ],
+  "author": "Tobias Wennzel",
+  "license": "MIT",
+  "devDependencies": {
+    "@alex_neo/jest-expect-message": "^1.0.5",
+    "@types/jest": "^27.0.2",
+    "@types/jest-expect-message": "^1.0.3",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "tslint": "^6.1.3",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "mongo-unit": "^2.0.1",
+    "mongodb": "^4.1.4",
+    "nanium": "^0.10.1"
+  }
+}

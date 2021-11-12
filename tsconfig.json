@@ -1,0 +1,29 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"module": "commonjs",
+		"sourceMap": true,
+		"declaration": false,
+		"watch": false,
+		"outDir": "dist",
+		"noEmitOnError": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"types": [
+			"node",
+			"jest",
+			"jest-expect-message"
+		],
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"target": "ES2020",
+		"lib": [
+			"ES2020"
+		]
+	},
+	"exclude": [
+		"src/client",
+		"dst",
+		"pkg"
+	]
+}

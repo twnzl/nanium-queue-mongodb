@@ -1,0 +1,24 @@
+{
+  "testEnvironment": "node",
+  "testTimeout": 100000,
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "js",
+    "json",
+    "node"
+  ],
+  "forceExit": true,
+  "detectOpenHandles": true,
+  "setupFilesAfterEnv": [
+    "@alex_neo/jest-expect-message"
+  ],
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts)$",
+  "coverageDirectory": "coverage",
+  "collectCoverageFrom": [
+    "src/**/*.{ts,js}",
+    "!src/**/*.d.ts"
+  ]
+}
