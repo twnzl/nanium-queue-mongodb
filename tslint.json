@@ -1,10 +1,6 @@
 {
-	"rulesDirectory": [
-		"dst/admin/tsLintRules"
-	],
 	"rules": {
 		"no-invalid-this": true,
-		"object-id-comparison-only-by-equals": true,
 		"arrow-return-shorthand": true,
 		"callable-types": true,
 		"class-name": true,
