@@ -1,5 +1,5 @@
 import * as mongoUnit from 'mongo-unit';
-import { NaniumMongoQueue } from './mongo.queue';
+import { NaniumMongoQueue } from './index';
 import { Nanium } from 'nanium/core';
 import { NaniumNodejsProvider } from 'nanium/managers/providers/nodejs';
 import { LogMode } from 'nanium/interfaces/logMode';

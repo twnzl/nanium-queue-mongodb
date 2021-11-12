@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"sourceMap": true,
-		"declaration": false,
+		"declaration": true,
 		"watch": false,
 		"outDir": "dist",
 		"noEmitOnError": false,

@@ -2,14 +2,20 @@
   "name": "nanium-queue-mongodb",
   "version": "1.0.0",
   "description": "request queue for the nanium framework using a mongodb collection to hold the request entries",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "jest"
+    "build": "tsc",
+    "test": "jest",
+    "bundle": "npx nanium rm dist && npm run build && npx cp package.json dist && cp README.md dist && npm publish ./dist"
   },
   "keywords": [
     "nanium",
     "queue",
     "mongodb"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts"
   ],
   "author": "Tobias Wennzel",
   "license": "MIT",
