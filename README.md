@@ -1,4 +1,4 @@
-# nanium-queue-mongo
+# nanium-queue-mongodb
 
 A nanium request queue using a mongodb collection to manage the request entries.
 
@@ -7,6 +7,7 @@ A nanium request queue using a mongodb collection to manage the request entries.
 npm install nanium-queue-mongo
 ```
 
+## Usage
 ## Usage
 ```ts
 import { Nanium } from 'nanium/core';
