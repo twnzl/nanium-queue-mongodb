@@ -4,14 +4,14 @@ A nanium request queue using a mongodb collection to manage the request entries.
 
 ## Install
 ```bash
-npm install nanium-queue-mongo
+npm install nanium-queue-mongodb
 ```
 
 ## Usage
 ## Usage
 ```ts
 import { Nanium } from 'nanium/core';
-import { NaniumMongoQueue } from 'nanium-queue-mongo';
+import { NaniumMongoQueue } from 'nanium-queue-mongodb';
 import * as express from 'express';
 
 mongoQueue = new NaniumMongoQueue({
