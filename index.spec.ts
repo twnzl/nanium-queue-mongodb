@@ -20,7 +20,7 @@ describe('MongoQueue Tests \n', function (): void {
 		await Nanium.addManager(new NaniumNodejsProvider({
 			logMode: LogMode.error,
 			servicePath: 'dist/testservices',
-			requestInterceptors: { test: TestServerRequestInterceptor },
+			requestInterceptors: [ TestServerRequestInterceptor ],
 			isResponsible: async (): Promise<KindOfResponsibility> => Promise.resolve('yes'),
 			handleError: async (err: any): Promise<any> => { throw err; },
 		}));

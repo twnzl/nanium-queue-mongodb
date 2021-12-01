@@ -22,8 +22,6 @@
 		]
 	},
 	"exclude": [
-		"src/client",
-		"dst",
-		"pkg"
+		"dist"
 	]
 }
