@@ -7,7 +7,7 @@ import {
 } from 'nanium/interfaces/serviceRequestQueueEntry';
 import { Nanium } from 'nanium/core';
 import { DateHelper } from 'nanium/helper';
-import { ServiceExecutionContext } from 'nanium/interfaces/serviceExecutionContext';
+import { ExecutionContext } from 'nanium/interfaces/executionContext';
 
 export class NaniumMongoQueue implements ServiceRequestQueue {
 	public isShutdownInitiated: boolean;
@@ -111,7 +111,7 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 		return NaniumMongoQueue.toExternalEntry(result.value);
 	}
 
-	async getExecutionContext(entry: ServiceRequestQueueEntry): Promise<ServiceExecutionContext> {
+	async getExecutionContext(entry: ServiceRequestQueueEntry): Promise<ExecutionContext> {
 		return await this.config.getExecutionContext(entry);
 	}
 
@@ -231,7 +231,7 @@ export class MongoQueueServiceRequestQueueConfig {
 	 * @param serviceName
 	 * @param entry
 	 */
-	getExecutionContext?: (entry: ServiceRequestQueueEntry) => Promise<ServiceExecutionContext>;
+	getExecutionContext?: (entry: ServiceRequestQueueEntry) => Promise<ExecutionContext>;
 
 	/**
 	 * Will run, after an entry is set to running but before it ist started.
