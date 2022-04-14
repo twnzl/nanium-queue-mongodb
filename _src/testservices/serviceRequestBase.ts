@@ -3,7 +3,7 @@ import { ServiceResponseBase } from './serviceResponseBase';
 import { ServiceRequestContext } from './serviceRequestContext';
 import { MyServiceRequestQueueEntry } from './serviceRequestQueueEntry';
 import { Observable } from 'rxjs';
-import { GenericType, Type } from 'nanium/serializers/core';
+import { Type } from 'nanium/objects';
 import { Nanium } from 'nanium/core';
 import { ServiceRequestQueueEntry } from 'nanium/interfaces/serviceRequestQueueEntry';
 
@@ -12,7 +12,7 @@ export class ServiceRequestBase<TRequestBody, TResponseBody, TPartialResponse = 
 	@Type(ServiceRequestHead)
 	head: ServiceRequestHead;
 
-	@GenericType('TRequestBody')
+	@Type('TRequestBody')
 	body: TRequestBody;
 
 	// if body is not Partial<> here, typescript will complain if you do not set the properties of

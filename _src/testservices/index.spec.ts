@@ -1,15 +1,14 @@
 import * as mongoUnit from 'mongo-unit';
-import { NaniumMongoQueue } from './index';
+import { NaniumMongoQueue } from '../index';
 import { Nanium } from 'nanium/core';
-import { LogMode } from 'nanium/interfaces/logMode';
 import { KindOfResponsibility } from 'nanium/interfaces/kindOfResponsibility';
 import { ServiceRequestQueueEntry } from 'nanium/interfaces/serviceRequestQueueEntry';
 import { AsyncHelper, DateHelper } from 'nanium/helper';
 import { DateMock } from './date.mock';
-import { TestGetRequest } from './testservices/test/get.contract';
+import { TestGetRequest } from './test/get.contract';
 import { Collection, Db, MongoClient } from 'mongodb';
-import { MyServiceRequestQueueEntry } from './testservices/serviceRequestQueueEntry';
-import { TestServerRequestInterceptor } from './testservices/test.request.interceptor';
+import { MyServiceRequestQueueEntry } from './serviceRequestQueueEntry';
+import { TestServerRequestInterceptor } from './test.request.interceptor';
 import { NaniumProviderNodejs } from 'nanium/managers/providers/nodejs';
 
 let mongoQueue: NaniumMongoQueue;
@@ -18,8 +17,7 @@ describe('MongoQueue Tests \n', function (): void {
 
 	beforeEach(async function (): Promise<void> {
 		await Nanium.addManager(new NaniumProviderNodejs({
-			logMode: LogMode.error,
-			servicePath: 'dist/testservices',
+			servicePath: 'testservices',
 			requestInterceptors: [ TestServerRequestInterceptor ],
 			isResponsible: async (): Promise<KindOfResponsibility> => Promise.resolve('yes'),
 			handleError: async (err: any): Promise<any> => { throw err; },

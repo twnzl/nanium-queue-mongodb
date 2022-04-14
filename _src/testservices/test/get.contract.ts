@@ -1,4 +1,4 @@
-import { RequestType } from 'nanium/serializers/core';
+import { RequestType } from 'nanium/objects';
 import { ServiceResponseBase } from '../serviceResponseBase';
 import { ServiceRequestBase } from '../serviceRequestBase';
 

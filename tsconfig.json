@@ -5,7 +5,7 @@
 		"sourceMap": true,
 		"declaration": true,
 		"watch": false,
-		"outDir": "dist",
+		"outDir": ".",
 		"noEmitOnError": false,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
@@ -21,7 +21,10 @@
 			"ES2020"
 		]
 	},
+	"include": [
+		"_src"
+	],
 	"exclude": [
-		"dist"
+		"testservices"
 	]
 }

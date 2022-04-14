@@ -95,7 +95,9 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 	}
 
 	public async enqueue(entry: ServiceRequestQueueEntry): Promise<ServiceRequestQueueEntry> {
-		const result: InsertOneResult<ServiceRequestQueueEntryInternal> = await this.collection.insertOne(entry);
+		const data: ServiceRequestQueueEntryInternal = { _id: undefined, ...entry };
+		delete (data as any).id;
+		const result: InsertOneResult<ServiceRequestQueueEntryInternal> = await this.collection.insertOne(data);
 		entry.id = result.insertedId.toHexString();
 		return entry;
 	}
@@ -147,13 +149,13 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 		}
 		const id: string = entry.id;
 		if (id) {
-			const data: any = { ...entry };
-			data._id = new ObjectId(entry.id);
-			delete data.id;
+			const data: ServiceRequestQueueEntryInternal = { _id: new ObjectId(entry.id), ...entry };
+			delete (data as any).id;
 			await this.collection.replaceOne({ _id: new ObjectId(id) }, data, { upsert: true });
 		} else {
-			const data: InsertOneResult<ServiceRequestQueueEntry> = await this.collection.insertOne(entry);
-			entry.id = data.insertedId.toHexString();
+			const data: ServiceRequestQueueEntryInternal = { _id: new ObjectId(entry.id), ...entry };
+			const result: InsertOneResult<ServiceRequestQueueEntryInternal> = await this.collection.insertOne(data);
+			entry.id = result.insertedId.toHexString();
 		}
 		return entry;
 	}
