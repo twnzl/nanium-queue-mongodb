@@ -1,6 +1,5 @@
 import { Collection, Db, InsertOneResult, ModifyResult, MongoClient, ObjectId } from 'mongodb';
 import { ServiceRequestQueue } from 'nanium/interfaces/serviceRequestQueue';
-import { KindOfResponsibility } from 'nanium/interfaces/kindOfResponsibility';
 import {
 	ServiceRequestQueueEntry,
 	ServiceRequestQueueEntryQueryConditions
@@ -25,7 +24,7 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 				checkInterval: 10, // default: 10 seconds
 				cleanupInterval: 3600, // default: one hour
 				cleanupAge: 3600 * 24 * 7, // default: one week
-				isResponsible: async (): Promise<KindOfResponsibility> => Promise.resolve('yes'),
+				isResponsible: async (): Promise<number> => Promise.resolve(1),
 				onBeforeStart: async (entry: ServiceRequestQueueEntry): Promise<ServiceRequestQueueEntry> => entry,
 				getExecutionContext: () => Promise.resolve({ scope: 'private' })
 			},
@@ -39,7 +38,7 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 		this.mongoClient = await MongoClient.connect(this.config.serverUrl);
 		this.database = this.mongoClient.db(this.config.databaseName);
 		this.collection = this.database.collection(this.config.collectionName);
-		// init check interval
+		// init check-interval
 		const processReadyRequests: () => Promise<void> = async () => {
 			if (!this.isShutdownInitiated) {
 				const readyEntries: ServiceRequestQueueEntry[] = await this.getEntries({
@@ -66,8 +65,8 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 		await cleanUp();
 	}
 
-	public async isResponsible(entry: ServiceRequestQueueEntry): Promise<KindOfResponsibility> {
-		return await this.config.isResponsible(entry);
+	public async isResponsible(entry: ServiceRequestQueueEntry, executionContext?: ExecutionContext): Promise<number> {
+		return await this.config.isResponsible(entry, executionContext);
 	}
 
 	public async onBeforeStart(entry: ServiceRequestQueueEntry): Promise<ServiceRequestQueueEntry> {
@@ -109,7 +108,7 @@ export class NaniumMongoQueue implements ServiceRequestQueue {
 		const result: ModifyResult<any> = await this.collection.findOneAndUpdate(
 			{ _id: new ObjectId(entry.id), state: 'ready' },
 			{ $set: { state: 'running', startDate: new Date() } },
-			{ returnDocument: 'after' });
+			{ returnDocument: 'after', includeResultMetadata: true });
 		return NaniumMongoQueue.toExternalEntry(result.value);
 	}
 
@@ -226,7 +225,7 @@ export class MongoQueueServiceRequestQueueConfig {
 	 * must return 'yes', if this queue is responsible for requests with the given name
 	 * or 'fallback', if it is only responsible if no other queue is responsible
 	 */
-	isResponsible?: (entry: ServiceRequestQueueEntry) => Promise<KindOfResponsibility>;
+	isResponsible?: (entry: ServiceRequestQueueEntry, executionContext?: ExecutionContext) => Promise<number>;
 
 	/**
 	 * create an execution context for a specific entry. It will be used for the execution of the request

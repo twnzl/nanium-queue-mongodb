@@ -1,7 +1,6 @@
 import * as mongoUnit from 'mongo-unit';
 import { NaniumMongoQueue } from '../index';
 import { Nanium } from 'nanium/core';
-import { KindOfResponsibility } from 'nanium/interfaces/kindOfResponsibility';
 import { ServiceRequestQueueEntry } from 'nanium/interfaces/serviceRequestQueueEntry';
 import { AsyncHelper, DateHelper } from 'nanium/helper';
 import { DateMock } from './date.mock';
@@ -19,7 +18,7 @@ describe('MongoQueue Tests \n', function (): void {
 		await Nanium.addManager(new NaniumProviderNodejs({
 			servicePath: 'testservices',
 			requestInterceptors: [ TestServerRequestInterceptor ],
-			isResponsible: async (): Promise<KindOfResponsibility> => Promise.resolve('yes'),
+			isResponsible: async (): Promise<number> => Promise.resolve(1),
 			handleError: async (err: any): Promise<any> => { throw err; },
 		}));
 		mongoQueue = new NaniumMongoQueue({
@@ -94,7 +93,7 @@ describe('MongoQueue Tests \n', function (): void {
 			serverUrl: await mongoUnit.start({ port: 27020 }), // 'mongodb://localhost:27017',
 			databaseName: 'nanium_test2',
 			collectionName: 'rq',
-			isResponsible: async (): Promise<KindOfResponsibility> => Promise.resolve('yes'),
+			isResponsible: async (): Promise<number> => Promise.resolve(1),
 		}));
 		expect(Nanium.queues.length, 'there should be two mongo queues registered').toBe(2);
 		await Nanium.removeQueue((q: NaniumMongoQueue) => q.config.databaseName === 'nanium_test2');
