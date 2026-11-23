@@ -1,6 +1,6 @@
-import { RequestType } from 'nanium/objects';
-import { ServiceResponseBase } from '../serviceResponseBase';
-import { ServiceRequestBase } from '../serviceRequestBase';
+import { RequestType } from 'nanium';
+import { ServiceResponseBase } from '../serviceResponseBase.js';
+import { ServiceRequestBase } from '../serviceRequestBase.js';
 
 export class TestGetResponse extends ServiceResponseBase<TestGetResponseBody> {
 }

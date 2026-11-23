@@ -2,7 +2,11 @@
   "testEnvironment": "node",
   "testTimeout": 100000,
   "transform": {
-    "^.+\\.ts$": "ts-jest"
+    "^.+\\.ts$": ["ts-jest", { "useESM": true, "tsconfig": { "module": "ES2020", "esModuleInterop": true } }]
+  },
+  "extensionsToTreatAsEsm": [".ts"],
+  "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
   },
   "moduleFileExtensions": [
     "ts",
@@ -18,6 +22,6 @@
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts)$",
   "coverageDirectory": "coverage",
   "collectCoverageFrom": [
-    "_src/**/*.{ts,js}"
+    "src/**/*.{ts,js}"
   ]
 }

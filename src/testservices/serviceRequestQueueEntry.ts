@@ -1,4 +1,4 @@
-import { ServiceRequestQueueEntry } from 'nanium/interfaces/serviceRequestQueueEntry';
+import { ServiceRequestQueueEntry } from 'nanium';
 
 export interface MyServiceRequestQueueEntry extends ServiceRequestQueueEntry {
 	/**

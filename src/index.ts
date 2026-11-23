@@ -1,12 +1,12 @@
 import { Collection, Db, InsertOneResult, ModifyResult, MongoClient, ObjectId } from 'mongodb';
-import { ServiceRequestQueue } from 'nanium/interfaces/serviceRequestQueue';
 import {
+	DateHelper,
+	ExecutionContext,
+	Nanium,
+	ServiceRequestQueue,
 	ServiceRequestQueueEntry,
 	ServiceRequestQueueEntryQueryConditions
-} from 'nanium/interfaces/serviceRequestQueueEntry';
-import { Nanium } from 'nanium/core';
-import { DateHelper } from 'nanium/helper';
-import { ExecutionContext } from 'nanium/interfaces/executionContext';
+} from 'nanium';
 
 export class NaniumMongoQueue implements ServiceRequestQueue {
 	public isShutdownInitiated: boolean;

@@ -7,12 +7,12 @@ A nanium request queue using a mongodb collection to manage the request entries.
 npm install nanium-queue-mongodb
 ```
 
-## Usage
+This package is ESM-only and requires Nanium 2.x.
+
 ## Usage
 ```ts
-import { Nanium } from 'nanium/core';
+import { Nanium } from 'nanium';
 import { NaniumMongoQueue } from 'nanium-queue-mongodb';
-import * as express from 'express';
 
 mongoQueue = new NaniumMongoQueue({
 	checkInterval: 10,
@@ -24,5 +24,5 @@ await Nanium.addQueue(mongoQueue);
 ```
 
 Connects to the mongodb server specified through the serverUrl. Creates a collection with the name specivied by __collectionName__ in the database __databaseName__.
-Every __checkInterval__ seconds it checks vor new request entries or changed states. 
+Every __checkInterval__ seconds it checks vor new request entries or changed states.
 It executes requests that are ready and writes the result back to the entry in the collection.

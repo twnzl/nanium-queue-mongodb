@@ -1,29 +1,39 @@
-import * as mongoUnit from 'mongo-unit';
-import { NaniumMongoQueue } from '../index';
-import { Nanium } from 'nanium/core';
-import { ServiceRequestQueueEntry } from 'nanium/interfaces/serviceRequestQueueEntry';
-import { AsyncHelper, DateHelper } from 'nanium/helper';
-import { DateMock } from './date.mock';
-import { TestGetRequest } from './test/get.contract';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import { NaniumMongoQueue } from '../index.js';
+import { Nanium, ServiceRequestQueueEntry, AsyncHelper, DateHelper } from 'nanium';
+import { DateMock } from './date.mock.js';
+import { TestGetRequest } from './test/get.contract.js';
+import { TestGetExecutor } from './test/get.executor.js';
 import { Collection, Db, MongoClient } from 'mongodb';
-import { MyServiceRequestQueueEntry } from './serviceRequestQueueEntry';
-import { TestServerRequestInterceptor } from './test.request.interceptor';
-import { NaniumProviderNodejs } from 'nanium/managers/providers/nodejs';
+import { MyServiceRequestQueueEntry } from './serviceRequestQueueEntry.js';
+import { TestServerRequestInterceptor } from './test.request.interceptor.js';
+import { NaniumProviderNodejs } from 'nanium/node';
 
 let mongoQueue: NaniumMongoQueue;
+let mongoServer: MongoMemoryServer;
 
 describe('MongoQueue Tests \n', function (): void {
 
+	beforeAll(async (): Promise<void> => {
+		mongoServer = await MongoMemoryServer.create();
+	});
+
+	afterAll(async (): Promise<void> => {
+		await mongoServer?.stop();
+	});
+
 	beforeEach(async function (): Promise<void> {
-		await Nanium.addManager(new NaniumProviderNodejs({
-			servicePath: 'testservices',
+		const provider = new NaniumProviderNodejs({
+			servicePath: undefined,
 			requestInterceptors: [ TestServerRequestInterceptor ],
 			isResponsible: async (): Promise<number> => Promise.resolve(1),
 			handleError: async (err: any): Promise<any> => { throw err; },
-		}));
+		});
+		provider.addService(TestGetRequest, TestGetExecutor);
+		await Nanium.addManager(provider);
 		mongoQueue = new NaniumMongoQueue({
 			checkInterval: 1,
-			serverUrl: await mongoUnit.start({ port: 27020 }), /* 'mongodb://localhost:27017',*/
+			serverUrl: mongoServer.getUri(),
 			databaseName: 'nanium_test',
 			collectionName: 'rq',
 		});
@@ -90,7 +100,7 @@ describe('MongoQueue Tests \n', function (): void {
 	it('removeQueue --> \n', async function (): Promise<void> {
 		await Nanium.addQueue(new NaniumMongoQueue({
 			checkInterval: 1,
-			serverUrl: await mongoUnit.start({ port: 27020 }), // 'mongodb://localhost:27017',
+			serverUrl: mongoServer.getUri(),
 			databaseName: 'nanium_test2',
 			collectionName: 'rq',
 			isResponsible: async (): Promise<number> => Promise.resolve(1),

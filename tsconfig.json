@@ -1,11 +1,13 @@
 {
 	"compileOnSave": true,
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"sourceMap": true,
 		"declaration": true,
 		"watch": false,
-		"outDir": ".",
+		"rootDir": "src",
+		"outDir": "dist",
 		"noEmitOnError": false,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
@@ -22,9 +24,9 @@
 		]
 	},
 	"include": [
-		"_src"
+		"src"
 	],
 	"exclude": [
-		"testservices"
+		"dist"
 	]
 }

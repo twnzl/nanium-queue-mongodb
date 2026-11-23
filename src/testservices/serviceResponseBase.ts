@@ -1,4 +1,4 @@
-import { Type } from 'nanium/objects';
+import { Type } from 'nanium';
 
 export class ServiceResponseMessage {
 	constructor(

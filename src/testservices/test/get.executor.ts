@@ -1,6 +1,6 @@
-import { TestGetRequest, TestGetResponse } from './get.contract';
-import { ServiceExecutor } from 'nanium/interfaces/serviceExecutor';
-import { ServiceResponseMessage } from '../serviceResponseBase';
+import { TestGetRequest, TestGetResponse } from './get.contract.js';
+import { ServiceExecutor } from 'nanium';
+import { ServiceResponseMessage } from '../serviceResponseBase.js';
 
 export class TestGetExecutor implements ServiceExecutor<TestGetRequest, TestGetResponse> {
 	static serviceName: string = 'NaniumTest:test/get';
